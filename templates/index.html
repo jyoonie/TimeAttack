@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <!-- Webpage Title -->
+    <title>주식 종목 추천</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+
+    <!-- 구글폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap" rel="stylesheet">
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#question-box").hide();
+        });
+
+
+        function start() {
+            $("#question-box").show();
+            $("#btn-primary").hide();
+
+                        $.ajax({
+                type: "GET",
+                url: "/memo",
+                data: {},
+                success: function (response) {
+                    // let indicators = response['all_items']
+                    //
+                    // for (let i = 0; i < indicators.length; i++) {
+                    //     let item = indicators[i]
+                    //
+                    // let temp_html = `<div class="form-check">
+                    //                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                    //                            value="option1" checked>
+                    //                     <label class="form-check-label" for="exampleRadios1">
+                    //                         ${item}
+                    //                     </label>
+                    //                 </div>`
+                    //
+                    //     $('#question-box').append(temp_html)
+                    // }
+                }
+            })
+        }
+
+        function next() {
+            $.ajax({
+                type: "POST",
+                url: "/code",
+                data: {sample_give: '샘플데이터'},
+                success: function (response) {
+                    alert(response["msg"]);
+                    window.location.reload();
+                }
+            })
+        }
+
+        function next() {
+            $.ajax({
+                type: "POST",
+                url: "/stock",
+                data: {sample_give: '샘플데이터'},
+                success: function (response) {
+                    alert(response["msg"]);
+                    window.location.reload();
+                }
+            })
+        }
+
+    </script>
+
+    <style>
+        * {
+            font-family: 'East Sea Dokdo', cursive;
+        }
+
+        .font {
+            font-size: 60px;
+        }
+
+        .question-box {
+            margin: 20px auto 20px auto;
+        }
+
+
+    </style>
+</head>
+
+<body>
+<div class="wrap">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <div class="font">
+                주식 종목 추천!!
+                <p></p>
+                <h4>원하시는 종목을 추천합니다</h4>
+            </div>
+            <div class="question-box" id="question-box">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                           value="option1" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                        Default radio
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                           value="option2">
+                    <label class="form-check-label" for="exampleRadios2">
+                        Second default radio
+                    </label>
+                </div>
+                <div>
+                    <button type="button" onclick="next()" class="btn btn-success" id="btn-secondary">다음</button>
+                </div>
+
+            </div>
+
+            <button type="button" onclick="start()" class="btn btn-primary" id="btn-primary">추천 시작</button>
+
+        </div>
+    </div>
+    <div class="card-columns" id="cards-box">
+    </div>
+</div>
+
+</body>
+
+</html>
