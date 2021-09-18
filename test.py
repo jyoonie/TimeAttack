@@ -3,6 +3,6 @@ from pymongo import MongoClient
 client = MongoClient('localhost', 27017)
 db = client.dbStock
 
-indicators = db.codes.distinct('group')
+indicators = list(db.codes.find({'group': 'market'}, {'_id': False}))
 
-print(indicators)
+print(indicators[0]['name'])

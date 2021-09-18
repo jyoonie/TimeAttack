@@ -27,56 +27,53 @@
 
     <script type="text/javascript">
 
-        $(document).ready(function () {
-            $("#question-box").hide();
-        });
-
-
         function start() {
-            $("#question-box").show();
             $("#btn-primary").hide();
 
-                        $.ajax({
+            $.ajax({
                 type: "GET",
-                url: "/memo",
+                url: "/code",
                 data: {},
                 success: function (response) {
-                    // let indicators = response['all_items']
-                    //
+                    let indicators = response['all_items']
+
                     // for (let i = 0; i < indicators.length; i++) {
-                    //     let item = indicators[i]
-                    //
-                    // let temp_html = `<div class="form-check">
-                    //                     <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                    //                            value="option1" checked>
-                    //                     <label class="form-check-label" for="exampleRadios1">
-                    //                         ${item}
-                    //                     </label>
-                    //                 </div>`
-                    //
-                    //     $('#question-box').append(temp_html)
-                    // }
+                    //     let name = indicators[i]['name']
+                    let name1 = indicators[0]['name']
+                    let name2 = indicators[1]['name']
+
+                    let temp_html = `<div class="form-check">
+                                         <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                               value="option1" checked>
+                                       <label class="form-check-label" for="exampleRadios1">
+                                           ${name1}
+                                       </label>
+                                     </div>
+                                     <div class="form-check">
+                                         <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                       value="option2">
+                                       <label class="form-check-label" for="exampleRadios2">
+                                           ${name2}
+                                       </label>
+                                     </div>
+                                     <button type="button" onclick="next()" class="btn btn-success" id="btn-secondary">다음</button>`
+
+                    $('#question-box').append(temp_html)
                 }
             })
         }
 
         function next() {
-            $.ajax({
-                type: "POST",
-                url: "/code",
-                data: {sample_give: '샘플데이터'},
-                success: function (response) {
-                    alert(response["msg"]);
-                    window.location.reload();
-                }
-            })
-        }
+            if (document.getElementById('exampleRadios1').checked) {
 
-        function next() {
+            } else if (document.getElementById('exampleRadios2').checked) {
+
+            }
+
             $.ajax({
                 type: "POST",
-                url: "/stock",
-                data: {sample_give: '샘플데이터'},
+                url: "/codes",
+                data: {codes_give: '샘플데이터'},
                 success: function (response) {
                     alert(response["msg"]);
                     window.location.reload();
@@ -106,38 +103,36 @@
 <body>
 <div class="wrap">
     <div class="jumbotron jumbotron-fluid">
-        <div class="container">
+        <div class="container" id="container">
             <div class="font">
                 주식 종목 추천!!
                 <p></p>
                 <h4>원하시는 종목을 추천합니다</h4>
             </div>
             <div class="question-box" id="question-box">
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                           value="option1" checked>
-                    <label class="form-check-label" for="exampleRadios1">
-                        Default radio
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                           value="option2">
-                    <label class="form-check-label" for="exampleRadios2">
-                        Second default radio
-                    </label>
-                </div>
-                <div>
-                    <button type="button" onclick="next()" class="btn btn-success" id="btn-secondary">다음</button>
-                </div>
+                <!--                <div class="form-check">-->
+                <!--                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"-->
+                <!--                           value="option1" checked>-->
+                <!--                    <label class="form-check-label" for="exampleRadios1">-->
+                <!--                        Default radio-->
+                <!--                    </label>-->
+                <!--                </div>-->
+                <!--                <div class="form-check">-->
+                <!--                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"-->
+                <!--                           value="option2">-->
+                <!--                    <label class="form-check-label" for="exampleRadios2">-->
+                <!--                        Second default radio-->
+                <!--                    </label>-->
+                <!--                </div>-->
+                <!--                <div>-->
+                <!--                    <button type="button" onclick="next()" class="btn btn-success" id="btn-secondary">다음</button>-->
+                <!--                </div>-->
 
             </div>
 
             <button type="button" onclick="start()" class="btn btn-primary" id="btn-primary">추천 시작</button>
 
         </div>
-    </div>
-    <div class="card-columns" id="cards-box">
     </div>
 </div>
 
