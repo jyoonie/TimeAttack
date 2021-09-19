@@ -27,8 +27,12 @@
 
     <script type="text/javascript">
 
+        $(document).ready(function () {
+            $('#btn-secondary').hide();
+        })
+
         function start() {
-            $("#btn-primary").hide();
+            $('#btn-primary').hide();
 
             $.ajax({
                 type: "GET",
@@ -36,50 +40,258 @@
                 data: {},
                 success: function (response) {
                     let indicators = response['all_items']
+                    // [market, sector, tag]
 
-                    // for (let i = 0; i < indicators.length; i++) {
-                    //     let name = indicators[i]['name']
                     let name1 = indicators[0]['name']
                     let name2 = indicators[1]['name']
 
+
                     let temp_html = `<div class="form-check">
                                          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
-                                               value="option1" checked>
-                                       <label class="form-check-label" for="exampleRadios1">
+                                               value="option1">
+                                         <label class="form-check-label" for="exampleRadios1">
                                            ${name1}
-                                       </label>
+                                         </label>
                                      </div>
                                      <div class="form-check">
                                          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
-                                       value="option2">
-                                       <label class="form-check-label" for="exampleRadios2">
+                                               value="option1">
+                                         <label class="form-check-label" for="exampleRadios2">
                                            ${name2}
-                                       </label>
+                                         </label>
                                      </div>
-                                     <button type="button" onclick="next()" class="btn btn-success" id="btn-secondary">다음</button>`
+                                     <button type="button" onclick="next()" class="btn btn-success" id="btn-success">다음</button>`
 
                     $('#question-box').append(temp_html)
+
                 }
+
             })
+
+            next()
         }
 
         function next() {
+
             if (document.getElementById('exampleRadios1').checked) {
 
-            } else if (document.getElementById('exampleRadios2').checked) {
+                $.ajax({
+                    type: "POST",
+                    url: "/codes",
+                    data: {name_give: '코스피'},
+                    success: function (response) {
+                        alert(response['code1']);
+                    }
+                })
 
+            } else if (document.getElementById('exampleRadios2').checked) {
+                $.ajax({
+                    type: "POST",
+                    url: "/codes",
+                    data: {name_give: '코스닥'},
+                    success: function (response) {
+                        alert(response['code1']);
+                    }
+                })
             }
+            second_page()
+        }
+
+        function second_page() {
+            $('#question-box').empty()
 
             $.ajax({
-                type: "POST",
-                url: "/codes",
-                data: {codes_give: '샘플데이터'},
+                type: "GET",
+                url: "/code2",
+                data: {},
                 success: function (response) {
-                    alert(response["msg"]);
-                    window.location.reload();
+                    let indicators = response['all_items']
+                    // [market, sector, tag]
+
+                    let name1 = indicators[0]['name']
+                    let name2 = indicators[1]['name']
+                    let name3 = indicators[2]['name']
+
+
+                    let temp_html = `<div class="form-check">
+                                         <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                               value="option1">
+                                         <label class="form-check-label" for="exampleRadios1">
+                                           ${name1}
+                                         </label>
+                                     </div>
+                                     <div class="form-check">
+                                         <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                               value="option1">
+                                         <label class="form-check-label" for="exampleRadios2">
+                                           ${name2}
+                                         </label>
+                                     </div>
+                                     <div class="form-check">
+                                         <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3"
+                                               value="option1">
+                                         <label class="form-check-label" for="exampleRadios3">
+                                           ${name3}
+                                         </label>
+                                     </div>
+                                     <button type="button" onclick="next2()" class="btn btn-success" id="btn-success2">다음</button>`
+
+                    $('#question-box').append(temp_html)
+
+                }
+
+            })
+
+            next2()
+        }
+
+        function next2() {
+
+            if (document.getElementById('exampleRadios1').checked) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/codes2",
+                    data: {name_give: '반도체와반도체장비'},
+                    success: function (response) {
+                        alert(response['code2']);
+                    }
+                })
+
+            } else if (document.getElementById('exampleRadios2').checked) {
+                $.ajax({
+                    type: "POST",
+                    url: "/codes2",
+                    data: {name_give: '양방향미디어와서비스'},
+                    success: function (response) {
+                        alert(response['code2']);
+                    }
+                })
+            } else if (document.getElementById('exampleRadios3').checked) {
+                $.ajax({
+                    type: "POST",
+                    url: "/codes2",
+                    data: {name_give: '자동차'},
+                    success: function (response) {
+                        alert(response['code2']);
+                    }
+                })
+            }
+            third_page()
+        }
+
+
+        function third_page() {
+            $('#question-box').empty()
+
+            $.ajax({
+                type: "GET",
+                url: "/code3",
+                data: {},
+                success: function (response) {
+                    let indicators = response['all_items']
+                    // [market, sector, tag]
+
+                    let name1 = indicators[0]['name']
+                    let name2 = indicators[1]['name']
+                    let name3 = indicators[2]['name']
+
+
+                    let temp_html = `<div class="form-check">
+                                         <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                                               value="option1">
+                                         <label class="form-check-label" for="exampleRadios1">
+                                           ${name1}
+                                         </label>
+                                     </div>
+                                     <div class="form-check">
+                                         <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                               value="option1">
+                                         <label class="form-check-label" for="exampleRadios2">
+                                           ${name2}
+                                         </label>
+                                     </div>
+                                     <div class="form-check">
+                                         <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3"
+                                               value="option1">
+                                         <label class="form-check-label" for="exampleRadios3">
+                                           ${name3}
+                                         </label>
+                                     </div>
+                                     <button type="button" onclick="final()" class="btn btn-success" id="btn-success3">다음</button>`
+
+                    $('#question-box').append(temp_html)
+
+                }
+
+            })
+            final()
+        }
+
+        function final() {
+            if (document.getElementById('exampleRadios1').checked) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "/codes3",
+                    data: {name_give: '메모리'},
+                    success: function (response) {
+                        alert(response['code3']);
+                    }
+                })
+
+            } else if (document.getElementById('exampleRadios2').checked) {
+                $.ajax({
+                    type: "POST",
+                    url: "/codes3",
+                    data: {name_give: '플랫폼'},
+                    success: function (response) {
+                        alert(response['code3']);
+                    }
+                })
+            } else if (document.getElementById('exampleRadios3').checked) {
+                $.ajax({
+                    type: "POST",
+                    url: "/codes3",
+                    data: {name_give: '전기차'},
+                    success: function (response) {
+                        alert(response['code3']);
+                    }
+                })
+            }
+            final_page()
+
+
+        }
+
+        function final_page() {
+            $('#question-box').empty()
+
+            $.ajax({
+                type: "GET",
+                url: '/stock',
+                data: {},
+                success: function (response) {
+                    let rec = response['user']
+
+                    for (let i = 0; i < rec.length; i++) {
+                        let name = rec[i]['name']
+
+                        let temp_html = `${name}<button type="button" class="btn btn-info">정보</button><p></p>`
+
+
+                        $('#question-box').append(temp_html)
+                        $('#btn-secondary').show()
+
+                    }
                 }
             })
         }
+
+        function reload() {
+            window.location.reload()
+        }
+
 
     </script>
 
@@ -110,27 +322,11 @@
                 <h4>원하시는 종목을 추천합니다</h4>
             </div>
             <div class="question-box" id="question-box">
-                <!--                <div class="form-check">-->
-                <!--                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"-->
-                <!--                           value="option1" checked>-->
-                <!--                    <label class="form-check-label" for="exampleRadios1">-->
-                <!--                        Default radio-->
-                <!--                    </label>-->
-                <!--                </div>-->
-                <!--                <div class="form-check">-->
-                <!--                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"-->
-                <!--                           value="option2">-->
-                <!--                    <label class="form-check-label" for="exampleRadios2">-->
-                <!--                        Second default radio-->
-                <!--                    </label>-->
-                <!--                </div>-->
-                <!--                <div>-->
-                <!--                    <button type="button" onclick="next()" class="btn btn-success" id="btn-secondary">다음</button>-->
-                <!--                </div>-->
-
             </div>
 
             <button type="button" onclick="start()" class="btn btn-primary" id="btn-primary">추천 시작</button>
+            <p></p>
+            <button type="button" onclick="reload()" class="btn btn-secondary" id="btn-secondary">다시선택</button>
 
         </div>
     </div>
