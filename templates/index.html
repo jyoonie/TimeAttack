@@ -276,8 +276,9 @@
 
                     for (let i = 0; i < rec.length; i++) {
                         let name = rec[i]['name']
+                        let code = rec[i]['code']
 
-                        let temp_html = `${name}<button type="button" class="btn btn-info">정보</button><p></p>`
+                        let temp_html = `${name}<button onclick="info(${code})" type="button" class="btn btn-info">정보</button><p></p>`
 
 
                         $('#question-box').append(temp_html)
@@ -290,6 +291,17 @@
 
         function reload() {
             window.location.reload()
+        }
+
+        function info(code) {
+            $.ajax({
+                type: 'POST',
+                url: 'stock2',
+                data: {code_give: code},
+                success: function (response) {
+                    alert(response['msg']);
+                }
+            })
         }
 
 
